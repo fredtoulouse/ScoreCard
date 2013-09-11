@@ -1,0 +1,46 @@
+<!DOCTYPE html> 
+<html lang="fr_FR"> 
+<head> 
+	<title>ScoreCard</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no"> 
+	
+	<meta name="description" content="Score Card">
+	<meta name="author" content="FBM">
+
+	<link rel="stylesheet" href="css/jquery.mobile-1.3.min.css" />
+	<link rel="stylesheet" href="themes/golf.min.css" />
+	<link rel="stylesheet" href="css/neuf.css" />
+	
+	<script src="ext/jquery-1.8.3.min.js"></script>
+	<script src="js/sc.js"></script>
+
+</head> 
+<body>  
+
+<div data-role="page" id="delete_history_page" data-close-btn="none">
+
+	<div data-role="header" data-position="fixed">
+	<div style="text-align: center;">
+	<h2>
+	<div style="display: inline"  class="translate">msg_confirm</div>: <div style="display: inline"  class="translate">msg_clear_history</div>
+	</h2>
+	</div>
+	</div>
+	<!-- /header -->
+
+<!-- MODIF bigButton -->
+	<div data-role="content" id="bigButton">	
+		<a href="menu.html" data-role="button" data-icon="alert" data-transition="pop" data-ajax="false" data-theme="e" id="delete_history" >
+		<div class="translate">msg_yes</div></a>
+		
+		<a href="menu.html" data-role="button" data-icon="delete" data-transition="pop" data-ajax="false" data-theme="b"  >
+		<div class="translate">msg_no</div></a>
+		
+	</div><!-- /content -->
+
+		
+</div>
+
+</body>
+</html>
