@@ -5,15 +5,19 @@
 // http://www.gnu.org/licenses/gpl-2.0.html
 
 
-$( '#reset_page' ).live( 'pageinit',function(event){
+$( '#reset_page' ).live( 'pageshow',function(event){
 	
-	$('#reset').on('click',function(event, ui){
+	ScoreCardLog("Reset PAGE INIT ");
+	
+	$('#reset_pref').on('click',function(event, ui){
 		//other code
 		ScoreCardLog("Reset GM");
 		//localStorage.clear();
 		localStorage.removeItem("scorecard_current");
 		localStorage.removeItem("scorecard_preference");
 		localStorage.removeItem("scorecard_first_start");
+		//Force a complete reload, without ajax
+		window.location='first_start.html';   
 	});
 });
 

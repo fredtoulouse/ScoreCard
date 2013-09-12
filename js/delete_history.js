@@ -14,6 +14,7 @@ $( '#delete_history_page' ).live( 'pageinit',function(event){
 		ScoreCardLog("Reset HISTORY");
 		//localStorage.clear();
 		localStorage.removeItem("scorecard_history");
+		$.mobile.changePage('menu.html', {transition: 'pop', role: 'page'});   
 	});
 });
 

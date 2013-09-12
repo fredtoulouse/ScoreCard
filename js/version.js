@@ -5,7 +5,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.html
 
 
-var SC_version="Pre Release 2";
+var SC_version="1.0";
 
 var SC_licence=["GPL2","http://www.gnu.org/licenses/gpl-2.0.html"];
 
@@ -16,6 +16,8 @@ var SC_authors=[
 var SC_traduc=[
 	["JB","Some correction on the french messages", "no-spam AT example.com"],
 	["Jose Luis Lopez Castillo","Spanish Traduction", "no-spam AT example.com"],
+	["JCC","Some English Traduction", "no-spam AT example.com"],
+	["Fab","Some English Traduction", "no-spam AT example.com"],
 ]
 
 var SC_other=[
