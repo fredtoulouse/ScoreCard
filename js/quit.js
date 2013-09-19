@@ -20,7 +20,7 @@ $( '#quit_page' ).live( 'pageinit',function(event){
 			break;
 			//web
 			case "web":
-				window.close();
+				window.location.replace("http://fredtoulouse.github.io/ScoreCard/");
 			break;
 		}
 	});

@@ -646,7 +646,7 @@ function initHw(idCanvas) {
 		
 		// Relachement du Click sur tout le document, j'arrête de dessiner :
 		$(this).mouseup(function() {
-			coreCardLog("PERF  this mouseup");
+			ScoreCardLog("PERF  this mouseup");
 			drawing = false;
 		});
 

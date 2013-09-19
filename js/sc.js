@@ -9,10 +9,10 @@
 //Add all javascript file requested by the software.
 
 //Platform support 
-platform="web"; //platform has three possible value : web, android, firefoxos
+platform="firefoxos"; //platform has three possible value : web, android, firefoxos
 //top_source="file:///home/blanchet/Travail/site/gsc/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
-top_source="file:///C:/Users/fblanche/Desktop/levignac/site/gsc/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
-//top_source="/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
+//top_source="file:///C:/Users/fblanche/Desktop/levignac/site/gsc/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
+top_source="/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
 //top_source="file:///android_asset/www/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
 //top_source="file:///android_asset/www/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
 
