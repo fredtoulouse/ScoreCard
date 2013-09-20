@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Golf Score Card</title> 
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	
+	<meta name="description" content="Score Card" />
+	<meta name="author" content="FBM" />
+
+	<link rel="stylesheet" href="css/jquery.mobile-1.3.min.css" />
+	<link rel="stylesheet" href="themes/golf.min.css" />
+	<link rel="stylesheet" href="css/neuf.css" />
+	
+	<script src="ext/jquery-1.8.3.min.js"></script>
+	<script src="js/sc.js"></script>
+
+</head> 
+<body>  
+
+<div data-role="page" id="preference">
+
+	<div data-role="header" data-position="fixed">
+		<h1 class="translate">msg_pref</h1>
+	</div><!-- /header -->
+	
+<div data-role="content">
+
+	<a href="reset.html" data-rel="dialog"  data-role="button" data-mini="true" data-icon="delete" data-theme="b" id="reset" >
+	<div class="translate">msg_reset_all</div></a>
+
+	<div data-role="fieldcontain">
+	    <label for="name_player" ><div class="translate">msg_player_name</div></label>
+	    <input type="text" name="name_player" id="name_player" value="" data-mini="true" />
+	</div>	
+
+	<div data-role="fieldcontain">
+		<label for="email_player" ><div class="translate">msg_player_email</div></label>
+		<input type="email" name="email_player" id="email_player" value=""  data-mini="true" />
+	</div>
+
+	<div data-role="fieldcontain">
+		<label for="select-choice-lang" class="select"><div class="translate">msg_lang</div></label>
+		<select name="select-choice-lang" id="select-choice-lang" data-mini="true">
+		   <option value="fr" class="translate" >msg_fr</option>
+		   <option value="en" class="translate" >msg_en</option>
+		   <option value="es" class="translate" >msg_es</option>
+		</select> 
+	</div>
+
+
+	<div data-role="fieldcontain">
+		<label for="select-choice-unit" class="select"><div class="translate">msg_unit</div></label>
+		<select name="select-choice-unit" id="select-choice-unit" data-mini="true">
+		   <option value="meter" class="translate">msg_meter</option>
+		   <option value="yard" class="translate">msg_yard</option>
+		</select> 
+	</div>
+
+	<div data-role="fieldcontain">
+		<label for="flip-GPS"><div class="translate">msg_activate_gps</div></label>
+		<select name="flip-GPS" data-theme="e" id="flip-GPS" data-role="slider" data-mini="true" >
+			<option value="off">OFF</option>
+			<option value="on">ON</option>
+		</select> 
+	</div>
+
+	<div data-role="fieldcontain">
+		<label for="flip-USEHW"><div class="translate">msg_activate_hw</div></label>
+		<select name="flip-USEHW" id="flip-USEHW" data-role="slider" data-mini="true">
+			<option value="off">OFF</option>
+			<option value="on">ON</option>
+		</select> 
+	</div>
+
+
+</div>
+
+	<div data-role="footer" data-position="fixed" id="myFooter"> 
+		<div style=" padding:2px 7px 2px 7px;">
+			<div class="ui-grid-b" id="footerButton">
+				<div class="ui-block-a"><a href="menu.html" data-role="button" data-transition="slideup" data-iconpos="top"  data-icon="home2" ></a></div>
+				<div class="ui-block-b"><a href="menu.html" data-rel="back" data-role="button"  data-transition="slideup" data-iconpos="top"  data-icon="back2"></a></div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+</body>
+</html>

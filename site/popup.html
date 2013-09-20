@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Golf Score Card</title> 
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	
+	<meta name="description" content="Score Card" />
+	<meta name="author" content="FBM" />
+
+	<link rel="stylesheet" href="css/jquery.mobile-1.3.min.css" />
+	<link rel="stylesheet" href="themes/golf.min.css" />
+	<link rel="stylesheet" href="css/neuf.css" />
+	
+	<script src="ext/jquery-1.8.3.min.js"></script>
+	<script src="js/sc.js"></script>
+
+</head> 
+<body> 
+
+<div data-role="page" id="neuf_popup">
+
+	<div data-role="header" data-theme="e">
+		<h1 class="translate">msg_end_game</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" data-theme="d">	
+		<h2 id="finalResult" class="translate">msg_end_game</h2>
+		<p><button type="submit"  data-theme="a" id="send_email"><div class="translate">msg_send_score</div></button></p>	
+		<br>	
+		<p><a href="menu.html" id="backMenu" data-role="button" data-icon="arrow-r" data-iconpos="right" data-transition="slide" data-theme="c" class="translate">msg_back_menu</a></p>	
+	</div>
+</div>
+
+
+</body>
+</html>

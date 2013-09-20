@@ -1,0 +1,208 @@
+
+/* Carroussel pour l'affichage de la table de 9 */
+.score_9 {
+	width: 272px;
+	border: 1px solid #ccc;
+}
+
+.score_9 ul {
+    display: block;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+.score_9 li {
+    display: block;
+    float: left;
+    font-size: 10px;
+    height: 47px;
+    margin: 6px;
+    padding: 0;
+    text-align: center;
+    width: 47px;
+	border: 5px solid #20fc0c;
+}
+
+
+/* Curseur de coté */
+a.prev, a.next {
+	width: 22px;
+	height: 52px;
+	display: block;
+	position: absolute;
+	top: 64px;
+}
+
+a.prev {            
+	left: +6px; /* largeur - (288/2) +22*/
+	background-image:url('../img/gauche.png');
+	background-repeat:no-repeat;
+}
+
+a.next {
+/*	background: url(img/droite.png) no-repeat;*/
+    background-image:url('../img/droite.png');
+	background-repeat:no-repeat;
+	right: +44px;/* largeur - (288/2) +22*/}
+
+a.prev span, a.next span {
+	display: none;
+}
+
+
+.score_dis {
+    font-size: 17px;	
+}
+
+.score_par {
+	font-size: 8px;
+}
+
+.id_trou {
+	font-size: 13px;
+	text-align: center;
+	font-style:italic;
+}
+
+.clearfix {
+    float: none;
+    clear: both;
+}
+
+.yet {
+    background-color: #c8d0d6;	
+}
+
+.not_yet {
+    background-color: white;	
+}
+
+.edit {
+    /*If modification add a marker	*/
+	background-image: linear-gradient(45deg, #f0ddd5 25%, transparent 25%, transparent 75%, #f0ddd5 75%, #f0ddd5), linear-gradient(45deg, #f0ddd5 25%, transparent 25%, transparent 75%, #f0ddd5 75%, #f0ddd5);
+	background-size:20px 20px;
+	background-position:0 0, 10px 10px
+}
+
+.en_cours {
+    background-color: #ffe674;	
+	width: 70px;
+}
+
+
+/* pour HW */
+.dessin {
+    background-color: #ffe674;	
+}
+
+
+/*The extra icon */
+/* custom icons */
+.ui-icon-quit {
+	background-image: url(../img/icons-18-white-quit.png);
+	background-repeat: no-repeat;
+}
+
+.ui-icon-gear {
+	background: transparent;
+	background-image: url(../img/icons-18-white-gear.png);
+	background-repeat: no-repeat;
+}
+
+.ui-icon-help {
+	background-image: url(../img/icons-18-white-help.png);
+	background-repeat: no-repeat;
+}
+
+.ui-icon-back {
+	background-image: url(../img/icons-18-white-back.png);
+	background-repeat: no-repeat;
+}
+
+.ui-icon-home {
+	background-image: url(../img/icons-18-white-help.png);
+	background-repeat: no-repeat;
+}
+
+.ui-icon-quit, .ui-icon-help, .ui-icon-gear, .ui-icon-back, .ui-icon-home  {
+	background-position: 0 50%;
+}
+
+
+
+/* big button */
+#bigButton .ui-btn {
+    margin-bottom: 5px;
+	/*height: 60px;*/
+}
+
+#bigButton .ui-btn-inner {
+    padding:20px;
+}
+
+.ui-content{
+	padding:15px 15px 5px 15px;
+}
+
+/*Support for Android 4.1 to 4.2 */
+    .ui-content{overflow-x:auto;}
+
+.infoScore h1, h2, h3 {
+	line-height: 1;
+	margin-top:12px; 
+}
+
+
+
+/* param footer */
+#footerButton .ui-btn {
+    margin-bottom: 5px;
+	/*height: 60px;*/
+
+	
+}
+
+#footerButton .ui-btn-inner {
+  padding-bottom:18px;
+  vertical-align:middle;
+
+}
+
+#footerButton .ui-icon {
+	top: 5px;    
+	background-image: url("../themes/images/icons-36-white.png");
+    background-repeat: no-repeat;
+	border-radius: 18px 18px 18px 18px;
+	height: 36px;
+    width: 36px;
+	left: 40%;
+}
+
+#footerButton .ui-icon-home2 {
+    background-image: url(../img/icons-36-white-home.png);
+}
+
+#footerButton .ui-icon-gear2 {
+    background-image: url(../img/icons-36-white-gear.png);
+}
+
+#footerButton .ui-icon-help {
+    background-image: url(../img/icons-36-white-help.png);
+}
+
+#footerButton .ui-icon-quit {
+    background-image: url(../img/icons-36-white-quit.png);
+}
+
+#footerButton .ui-icon-back2 {
+    background-image: url(../img/icons-36-white-back.png);
+}
+
+
+
+/*Meteo img */
+.meteo {
+	 vertical-align:top;
+}
+

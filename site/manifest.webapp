@@ -1,0 +1,26 @@
+{
+  "name": "Golf SC",
+  "description": "Score card for golf courses",
+  "launch_path": "/menu.html",
+  "fullscreen": "true",
+ "icons": {
+  "16": "/img/icon-16.png",
+  "48": "/img/icon-48.png",
+  "60": "/img/icon-60.png",
+  "128": "/img/icon-128.png"
+},
+  "developer": {
+    "name": "FRED",
+    "url": "http://fredtoulouse.github.io/ScoreCard/"
+  },
+  "default_locale": "en",
+  "type": "privileged",
+  "installs_allowed_from": ["*"],
+  "orientation": ["portrait"],
+  "appcache_patch": "/cache.manifest",
+  "permissions": {
+        "geolocation": {
+            "description" : "Used to locate me"
+        }
+  }
+}
