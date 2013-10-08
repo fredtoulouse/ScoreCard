@@ -21,6 +21,9 @@
   "permissions": {
         "geolocation": {
             "description" : "Used to locate me"
-        }
+        },
+	"device-storage:sdcard":{ 
+		"access": "readwrite" 
+	}
   }
 }

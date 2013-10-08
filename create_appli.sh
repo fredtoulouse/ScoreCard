@@ -5,7 +5,7 @@ set -x
 export cible=$1
 export directory=$2
 
-echo "create web app for: web, firefoxos, android" 
+echo "create web app for: WEB, firefoxos, android" 
 
 function help_display {
 	echo "USAGE create_appli [android|web|firefoxos] new_path"

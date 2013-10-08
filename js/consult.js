@@ -65,7 +65,7 @@ function oldScore()  {
 		this.listScore.push([score.date, score.nameGolf, myConfiguration.playerName, score.weather, score.note, score.typeGolf, score.arrayResult,score.arrayDistance,par]) 
 		var data=JSON.stringify (this.listScore);
 		
-		ScoreCardLog ("NEW HISTORY "+data);
+		ScoreCardLog ("\n------------NEW HISTORY \n"+data);
 		
 		localStorage["scorecard_history"]=data;
 	}
@@ -97,7 +97,7 @@ function oldScore()  {
 this.generateList = function() {  
 	myHistory=myHistoryScore.getListScore();
 	
-	var cache_UL=$('ul');
+	var cache_UL=$('#listScoreDiv ul');
 	cache_UL.empty();
 	var newHtml="";
 	var cpt=0;

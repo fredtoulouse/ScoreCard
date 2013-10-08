@@ -112,8 +112,8 @@ this.updateValue = function() {
 }  
 
 
-$( '#neuf_popup' ).live( 'pageinit',function(event){
-	ScoreCardLog("POPUP INIT ");
+$( '#neuf_popup' ).live( 'pageshow',function(event){
+	ScoreCardLog("POPUP SHOW ");
 	
 	Score.getInstance().getStoredScore();
 	

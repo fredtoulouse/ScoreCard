@@ -277,22 +277,135 @@ function PushData()  {
 			
 			//FirefoxOS
 			case "firefoxos":
-				//Mail for firefox OS		
-				var myEmail = new mozActivity ({
-					name: "new",
+				//Mail for firefox OS	
+				var maxShot=getMaxShot (myScore);
+				var myTxtMail=generateTxtScore(myScore, par);
+				var myHtmlData=generateHtmlScore(myScore, par, maxShot);
+				var myKmlData=generateKmlLocation (myScore, maxShot);
+				
+				//alert(myTxtMail);		
+				
+				alert('V7');
+				/*var sdcard1 = navigator.getDeviceStorage("sdcard");
+				var sdcard2 = navigator.getDeviceStorage("sdcard");*/
+				var sdcard = navigator.getDeviceStorage("sdcard");
+				//var sdcard4 = navigator.getDeviceStorage("sdcard");
+				
+				
+				//Remove old temporary files 
+			/*	var requestDelHTML = sdcard1.delete("GolfScoreCard.html");
+
+				requestDelHTML.onsuccess = function () {
+					alert("File HTML deleted");
+				  
+				}
+
+				requestDelHTML.onerror = function () {
+					alert("Unable to delete the file HTML: " + this.error);
+				}
+				
+				var requestDelKML = sdcard2.delete("GolfScoreCard.kml");
+
+				requestDelKML.onsuccess = function () {
+				  console.log("File KML deleted");
+				}
+
+				requestDelKML.onerror = function () {
+				  console.log("Unable to delete the file KML: " + this.error);
+				}*/
+				
+				
+				//Parcour la sdcard 
+				var cursor = sdcard.enumerate();
+				var files_l="";
+				cursor.onsuccess = function () {
+					//alert("Got something");
+					var file = this.result;
+					if (file != null) {
+					
+						files_l=files_l+file.name+"\n"
+						this.done = false;
+					} else {
+						this.done = true;
+					}
+
+					if (!this.done) {
+						this.continue();
+					}
+				}
+				
+				var requestDelHTML = sdcard.delete("GolfScoreCard.html");
+				
+				requestDelHTML.onsuccess = function () {
+					alert("File HTML deleted");
+				  
+				}
+
+				requestDelHTML.onerror = function () {
+					alert("Unable to delete the file HTML: " + this.error.name);
+				}
+				
+				//Old files is deleted, so we coudl create the new one.
+				
+				//Create the HTML files
+				var fileHTML_ID   = new Blob(["Message Perso"], {type: "text/plain"});
+
+				var requestHTML = sdcard.addNamed(fileHTML_ID, "GolfScoreCard.html");
+
+				requestHTML.onsuccess = function () {
+					var name = this.result;
+					//console.log('File "' + name + '" successfully wrote on the sdcard storage area');
+					alert('SUCCES HTML ' + name);	
+				}
+
+				// An error typically occur if a file with the same name already exist
+				requestHTML.onerror = function () {
+					//console.warn('Unable to write the file: ' + this.error);
+					alert('ERROR HTML ' + this.error.name);	
+				}
+				
+				
+				//Create the KML files
+			/*	var file   = new Blob([myKmlData], {type: "text/plain"});
+				var requestKML = sdcard4.addNamed(file, "GolfScoreCard.kml");
+
+				requestKML.onsuccess = function () {
+					var name = this.result;
+					//console.log('File "' + name + '" successfully wrote on the sdcard storage area');
+					alert('SUCCES KML ' + name);	
+				}
+
+				// An error typically occur if a file with the same name already exist
+				requestKML.onerror = function () {
+					//console.warn('Unable to write the file: ' + this.error);
+					alert('ERROR KML ' + this.error);	
+				}
+				
+				
+				*/
+				
+				/*
+				var createEmail = new MozActivity({
+					name: "new", // Possibly compose-mail in future versions
 					data: {
-						type: ["mail"]
+					    type : "mail",
+					    url: "mailto:"+Configuration.getInstance().playerEmail +
+							"?subject=" + encodeURIComponent(jQuery.i18n.prop('msg_score')+" " + myScore.nameGolf+ " " +myScore.date) + 
+							"&body=" + encodeURIComponent(myTxtMail)
 					}
 				});
 				
-				myEmail.onsuccess = function () {
-					alert("ok email");
+				createEmail.onsuccess = function () {
+					alert("EMAIL SENT");		
+					ScoreCardLog("EMAIL SENT");
 				}
 				
-				myEmail.onerror = function () {
+				createEmail.onerror = function () {
 					// If an error occurred or the user canceled the activity
-					alert("NO MAIL");
-				};
+					alert("NO MAIL");	
+					ScoreCardLog("ERROR MAIL");
+				};*/
+					
 			break;
 		}
 	}
