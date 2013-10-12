@@ -75,9 +75,9 @@ document.write('<script src="js/chrono.js"><\/script>');
 document.write('<script src="js/quit.js"><\/script>');
 
 
-if (platform == "android") {
-	document.write('<script src="js/store_api.js"><\/script>');
-}
+
+document.write('<script src="js/store_api.js"><\/script>');
+
 
 debugLog="";
 //log function

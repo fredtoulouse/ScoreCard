@@ -139,10 +139,12 @@ this.generateList = function() {
 }
 
 this.updateInfoScore = function(item, id) {  
-	$('#infoScore'+id)[0].innerHTML= "<h2>"+item[1]+"</h2><h3>"+item[0]+"</br></h3>"+jQuery.i18n.prop("msg_player_name")+":"+item[2]+"</br>"+jQuery.i18n.prop("msg_climat")+":";
-	$('#infoScore'+id)[0].innerHTML=$('#infoScore'+id)[0].innerHTML+"<IMG class='meteo' SRC='img/"+item[3]+".png' ALT='"+jQuery.i18n.prop(item[3])+"'></br>"
-	$('#infoScore'+id)[0].innerHTML= $('#infoScore'+id)[0].innerHTML+jQuery.i18n.prop("msg_golf_note")+":"+item[4]+"</br>";
-	$('#infoScore'+id)[0].innerHTML= $('#infoScore'+id)[0].innerHTML+jQuery.i18n.prop("msg_result_score")+"&nbsp;:&nbsp;"+Score.getInstance().computeAnotherResult(item[6])+"</br>";
+	if (item != null) {
+		$('#infoScore'+id)[0].innerHTML= "<h2>"+item[1]+"</h2><h3>"+item[0]+"</br></h3>"+jQuery.i18n.prop("msg_player_name")+":"+item[2]+"</br>"+jQuery.i18n.prop("msg_climat")+":";
+		$('#infoScore'+id)[0].innerHTML=$('#infoScore'+id)[0].innerHTML+"<IMG class='meteo' SRC='img/"+item[3]+".png' ALT='"+jQuery.i18n.prop(item[3])+"'></br>"
+		$('#infoScore'+id)[0].innerHTML= $('#infoScore'+id)[0].innerHTML+jQuery.i18n.prop("msg_golf_note")+":"+item[4]+"</br>";
+		$('#infoScore'+id)[0].innerHTML= $('#infoScore'+id)[0].innerHTML+jQuery.i18n.prop("msg_result_score")+"&nbsp;:&nbsp;"+Score.getInstance().computeAnotherResult(item[6])+"</br>";
+	}
 }
 
 
@@ -195,36 +197,40 @@ $( '#confirm_supress' ).live( 'pageshow',function(event){
 })
 
 $( '#plus_info' ).live( 'pagebeforeshow',function(event){
-	updateInfoScore(myChoosenScore, 1);
+	if (myChoosenScore != null) {
+		updateInfoScore(myChoosenScore, 1);
 
-	myInfoScoreDisplay = new ScoreDisplay();
-	myInfoScoreDisplay.init("#info_carte_score", "#info_prev", "#info_next");
-	
-	//display the 9 holes, ToDo support for 18 holes
-	table9(myChoosenScore[6], myChoosenScore[8]);
-	
-	Cache.getInstance().CACHE_SC_INFO_SEND_EMAIL.on('click',function(event, ui){
-		myCurrentScore=new Score();
+		myInfoScoreDisplay = new ScoreDisplay();
+		myInfoScoreDisplay.init("#info_carte_score", "#info_prev", "#info_next");
 		
-		ScoreCardLog("MAIL !!!!");
+		//display the 9 holes, ToDo support for 18 holes
+		table9(myChoosenScore[6], myChoosenScore[8]);
 		
-		myCurrentScore.typeGolf=myChoosenScore[5];    //9 ou 18 trou 
-		myCurrentScore.arrayResult=myChoosenScore[6]; 
-		myCurrentScore.nameGolf=myChoosenScore[1]; 
-		myCurrentScore.note=myChoosenScore[4]; 
-		myCurrentScore.weather=myChoosenScore[3]; 
-		myCurrentScore.date=myChoosenScore[0]; 
-		myCurrentScore.arrayDistance=myChoosenScore[7]; 
-		myMail = new PushData();
-		myMail.mail(myCurrentScore, myChoosenScore[8]);
-	});
+		Cache.getInstance().CACHE_SC_INFO_SEND_EMAIL.on('click',function(event, ui){
+			myCurrentScore=new Score();
+			
+			ScoreCardLog("MAIL !!!!");
+			
+			myCurrentScore.typeGolf=myChoosenScore[5];    //9 ou 18 trou 
+			myCurrentScore.arrayResult=myChoosenScore[6]; 
+			myCurrentScore.nameGolf=myChoosenScore[1]; 
+			myCurrentScore.note=myChoosenScore[4]; 
+			myCurrentScore.weather=myChoosenScore[3]; 
+			myCurrentScore.date=myChoosenScore[0]; 
+			myCurrentScore.arrayDistance=myChoosenScore[7]; 
+			myMail = new PushData();
+			myMail.mail(myCurrentScore, myChoosenScore[8]);
+		});
 	
+	}
 })
 
 
 $( '#plus_info' ).live( 'pageshow',function(event){
 	//FBM a voir si on doit le deplacer sur l'init ou le laisser sur pageshow
-	myInfoScoreDisplay.run();
+	if (myInfoScoreDisplay != null) {
+		myInfoScoreDisplay.run();
+	}
 	//myInfoScoreDisplay.fixArrow();
 })
 

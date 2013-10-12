@@ -246,9 +246,9 @@ function PushData()  {
 				var myHtmlData=generateHtmlScore(myScore, par, maxShot);
 				var myKmlData=generateKmlLocation (myScore, maxShot) 
 
-				var my_score_html = new StoreInfo (myHtmlData, "Golf Score Card.html");
+				var my_score_html = new StoreInfoAndroid (myHtmlData, "Golf Score Card.html");
 				if (maxShot != 0) {
-					var my_score_kml = new StoreInfo (myKmlData, "Golf Map.kml");
+					var my_score_kml = new StoreInfoAndroid (myKmlData, "Golf Map.kml");
  
 					/* for normal  use */
 					window.plugins.emailComposer.showEmailComposer(
@@ -285,12 +285,15 @@ function PushData()  {
 				
 				//alert(myTxtMail);		
 				
-				alert('V8');
-
-				var my_score_html = new StoreInfo (myHtmlData, "Golf Score Card.html");
+				alert('V11');
+				alert('maxShot1='+maxShot);
+				StoreInfoFirefox (myHtmlData, "Golf Score Card.html");
+				
+				alert('maxShot2='+maxShot);
 				
 				if (maxShot != 0) {
-					var my_score_kml = new StoreInfo (myKmlData, "Golf Map.kml");
+					alert('V9.1');
+					var my_score_kml = new StoreInfoFirefox (myKmlData, "Golf Map.kml");
 					
 					var createEmail = new MozActivity({
 						name: "new", // Possibly compose-mail in future versions
@@ -318,6 +321,7 @@ function PushData()  {
 					};
 
 				} else {
+					alert('V9.2');
 					var createEmail = new MozActivity({
 						name: "new", // Possibly compose-mail in future versions
 						data: {
@@ -339,6 +343,7 @@ function PushData()  {
 						ScoreCardLog("ERROR MAIL");
 					};
 				}
+				alert('FIN');
 			break;
 		}
 	}
