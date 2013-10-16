@@ -151,7 +151,7 @@ function generateHtmlScore (myScore, par, maxShot) {
 					corp_mail+='<td style="width: 8%; text-align: center;"><i>';
 					if (item != null) {
 						if ((item[cptNumCoup-1] != null) && (item[cptNumCoup] != null)) {
-							dist=Distance.getInstance().computeDistance(item[cptNumCoup-1][0], item[cptNumCoup-1][1], item[cptNumCoup][0], item[cptNumCoup][1]);
+							dist=Distance.getInstance().computeDistance(item[cptNumCoup-1][0], item[cptNumCoup-1][1], item[cptNumCoup][0], item[cptNumCoup][1],item[cptNumCoup-1][2],item[cptNumCoup][2]);
 						} else {
 							corp_mail+="N/A";
 						}
@@ -187,7 +187,7 @@ function generateKmlLocation (myScore, maxShot) {
 					if (item[cptNumCoup] != null) {
 						//0.0 is point with GPS not yet activated 
 						if (((item[cptNumCoup][0] != 0) && (item[cptNumCoup][1] != 0)) || ((item[cptNumCoup][1] != null)||(item[cptNumCoup][0] != null))) {
-							kml_files+='<Placemark><name>'+htmlEncode(jQuery.i18n.prop('msg_hole_number'))+(i+1)+' Coup '+(cptNumCoup+1)+'</name><Point><coordinates>'+item[cptNumCoup][1]+','+ item[cptNumCoup][0]+',0.000000</coordinates></Point></Placemark>\n';
+							kml_files+='<Placemark><name>'+htmlEncode(jQuery.i18n.prop('msg_hole_number'))+(i+1)+' '+jQuery.i18n.prop("msg_marq")+' '+(cptNumCoup+1)+' &rArr; ['+myScore.arrayResult[i]+']</name><Point><coordinates>'+item[cptNumCoup][1]+','+ item[cptNumCoup][0]+',0.000000</coordinates></Point></Placemark>\n';
 						}
 					}
 				}
@@ -283,45 +283,32 @@ function PushData()  {
 				var myHtmlData=generateHtmlScore(myScore, par, maxShot);
 				var myKmlData=generateKmlLocation (myScore, maxShot);
 				
-				//alert(myTxtMail);		
-				
-				alert('V11');
-				alert('maxShot1='+maxShot);
 				StoreInfoFirefox (myHtmlData, "Golf Score Card.html");
-				
-				alert('maxShot2='+maxShot);
-				
 				if (maxShot != 0) {
-					alert('V9.1');
 					var my_score_kml = new StoreInfoFirefox (myKmlData, "Golf Map.kml");
 					
 					var createEmail = new MozActivity({
 						name: "new", // Possibly compose-mail in future versions
-
 						data: {
 						    type : "mail",
 						    url: "mailto:"+Configuration.getInstance().playerEmail +
 								"?subject=" + encodeURIComponent(jQuery.i18n.prop('msg_score')+" " + myScore.nameGolf+ " " +myScore.date) + 
-								"&body=" + encodeURIComponent(myTxtMail)
+								"&body=" + encodeURIComponent(myTxtMail)+"&attachment='/GolfScoreCard/Golf Score Card.html'"
 						}
 
 					});
 				
 					createEmail.onsuccess = function () {
-						alert("EMAIL SENT");		
 						ScoreCardLog("EMAIL SENT");
-
 					}
 				
 					createEmail.onerror = function () {
 						// If an error occurred or the user canceled the activity
-						alert("NO MAIL");	
-
 						ScoreCardLog("ERROR MAIL");
 					};
 
 				} else {
-					alert('V9.2');
+				
 					var createEmail = new MozActivity({
 						name: "new", // Possibly compose-mail in future versions
 						data: {
@@ -333,17 +320,14 @@ function PushData()  {
 					});
 				
 					createEmail.onsuccess = function () {
-						alert("EMAIL SENT");		
 						ScoreCardLog("EMAIL SENT");
 					}
 				
 					createEmail.onerror = function () {
 						// If an error occurred or the user canceled the activity
-						alert("NO MAIL");	
 						ScoreCardLog("ERROR MAIL");
 					};
 				}
-				alert('FIN');
 			break;
 		}
 	}

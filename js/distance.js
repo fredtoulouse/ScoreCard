@@ -69,7 +69,7 @@ function Distance()  {
 	};
 	
 	//Distance en metre
-	this.computeDistance = function (lat_a, lon_a, lat_b, lon_b) {
+	this.computeDistance = function (lat_a, lon_a, lat_b, lon_b, accu_a,accu_b) {
 		if ((lat_a==lat_b) && (lon_a == lon_b)) {
 			if (meter == 1) {
 				return "0 m";
@@ -77,6 +77,9 @@ function Distance()  {
 				return "0 yards";
 			}
 		}
+		
+		var accu_a_check = parseInt(accu_a) || 0;
+		var accu_b_check = parseInt(accu_b) || 0;
 		
 		a = Math.PI / 180;
 		lat1 = lat_a * a;
@@ -91,9 +94,9 @@ function Distance()  {
 		t5 = t1 + t4;
 		rad_dist = Math.atan(-t5/Math.sqrt(-t5 * t5 +1)) + 2 * Math.atan(1);
 		if (meter == 1) {
-			return parseInt((rad_dist * 3437.74677 * 1.1508) * 1609.3470878864446)+" m";
+			return parseInt((rad_dist * 3437.74677 * 1.1508) * 1609.3470878864446)+" m &#177; "+(accu_a_check+accu_b_check)+" m";
 		} else {
-			return parseInt((rad_dist * 3437.74677 * 1.1508) * 1609.3470878864446*0.9144)+" yards";
+			return parseInt((rad_dist * 3437.74677 * 1.1508) * 1609.3470878864446*0.9144)+" yards &#177; "+((accu_a_check+accu_b_check)*0.9144)+" yards";
 		}
 		
 		return parseInt((rad_dist * 3437.74677 * 1.1508) * 1609.3470878864446);
@@ -112,7 +115,7 @@ function Distance()  {
 	}
 	
 	this.addDistanceEachHoleHtmlView = function() {
-		var distEachHole="";
+		var distEachHole="</br> ";
 		var first_pos;
 		
 		if (Score.getInstance().arrayDistance[Score.getInstance().currentHole] != null) {
@@ -121,17 +124,21 @@ function Distance()  {
 				if (one_pos != null) {
 					if (((one_pos[0] == 0) && (one_pos[1] == 0)) || ((one_pos[0] == null) && (one_pos[1] == null))) {
 						ScoreCardLog("one_pos a 0 pas de calcul\n");
+						distEachHole+="&nbsp;"+jQuery.i18n.prop('msg_pos_nodispo').toLowerCase()+"</br> &nbsp;&nbsp;&nbsp;&nbsp;N/A \n"; 
 					} else {
 						if ((first_pos[0]==0) && (first_pos[1]==0)) {
 							first_pos=one_pos; //First position initalized
 						} else {
 							//compute distance from last position
-							ScoreCardLog("GPS : distance " + myThis.computeDistance(first_pos[0], first_pos[1], one_pos[0], one_pos[1]));
-							distEachHole=distEachHole+" - "+myThis.computeDistance(first_pos[0], first_pos[1], one_pos[0], one_pos[1])+ "</br>\n"; 
+							ScoreCardLog("GPS : distance " + myThis.computeDistance(first_pos[0], first_pos[1], one_pos[0], one_pos[1], first_pos[2], one_pos[2]));
+							distEachHole=distEachHole+"</br>&nbsp;&nbsp;&nbsp;&nbsp;&#x21D5 "+myThis.computeDistance(first_pos[0], first_pos[1], one_pos[0], one_pos[1], first_pos[2], one_pos[2])+ "</br>\n"; 
 							first_pos=one_pos;
 						}
 					}
+				} else {
+					distEachHole+="&nbsp;"+jQuery.i18n.prop('msg_pos_nodispo').toLowerCase()+"</br> &nbsp;&nbsp;&nbsp;&nbsp;N/A \n"; 
 				}
+				distEachHole+=jQuery.i18n.prop("msg_marq")+(n+1)+" &rArr; ["+one_pos[3]+"]";
 			})
 		}
 		return "\n"+distEachHole;
@@ -143,13 +150,7 @@ function Distance()  {
 		if (myPosition != null) {
 			if (myError=="") {
 				dist=this.computeDistance(myPosition.arrayPosition[Score.getInstance().currentHole][0], myPosition.arrayPosition[Score.getInstance().currentHole][1], 
-				myLat, myLong)+" +/- ";
-				
-				if (meter == 1) {
-					dist += myAccuracy +" m";
-				} else {
-					dist += (myAccuracy*0.9144)+" yards";
-				}
+				myLat, myLong,0, myAccuracy); //Compute the accuracy for this case only with the accuracy of GPS, database is set as enougth accurate.
 			} else {
 				dist=myError;
 			}
@@ -181,19 +182,21 @@ $( '#neuf_two' ).live( 'pageshow',function(event){
 	//var messageDistance=;
 	if(navigator.geolocation) {
  		if (Configuration.getInstance().gps == "on") {
-			$('#show_dist')[0].innerHTML="";
+			$('#show_dist1')[0].innerHTML="";
+			$('#show_dist2')[0].innerHTML="";
 			if (Score.getInstance().db == 0) {
-				ScoreCardLog("messageDistance :: " + $('#show_dist')[0].innerHTML);
-				$('#show_dist')[0].innerHTML=Distance.getInstance().getDistance();
+				ScoreCardLog("messageDistance :: " + $('#show_dist1')[0].innerHTML);
+				$('#show_dist1')[0].innerHTML=Distance.getInstance().getDistance();
 			} else {
-				$('#show_dist')[0].innerHTML=jQuery.i18n.prop("msg_no_dbdist");
-				ScoreCardLog("messageDistance :: " + $('#show_dist')[0].innerHTML);
+				$('#show_dist1')[0].innerHTML=jQuery.i18n.prop("msg_no_dbdist");
+				ScoreCardLog("messageDistance :: " + $('#show_dist1')[0].innerHTML);
 			}
-			$('#show_dist')[0].innerHTML=$('#show_dist')[0].innerHTML+"</br>"+Distance.getInstance().addDistanceEachHoleHtmlView();
+			$('#show_dist2')[0].innerHTML=Distance.getInstance().addDistanceEachHoleHtmlView();
 		} else {
-			$('#show_dist')[0].innerHTML=jQuery.i18n.prop("msg_no_activated_gps");
+			$('#show_dist1')[0].innerHTML=jQuery.i18n.prop("msg_no_activated_gps");
 		}
 	} else {
-		$('#show_dist')[0].innerHTML=jQuery.i18n.prop("msg_no_activated_gps");
+		$('#show_dist1')[0].innerHTML=jQuery.i18n.prop("msg_no_activated_gps");
+		$('#show_dist2')[0].innerHTML="";
 	}
 });

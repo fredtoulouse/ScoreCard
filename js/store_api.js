@@ -11,7 +11,6 @@ function onError (evt) {
 	ScoreCardLog('[FAIL] ' + evt.target.error.code);
 }
 
-
 function StoreInfoFirefox (text, filename) {
 
 	var FILENAME=filename;
@@ -24,7 +23,7 @@ function StoreInfoFirefox (text, filename) {
 	request.onsuccess = function () {
 		var file_ID   = new Blob([text], {type: "text/plain"});
 
-		var request2 = sdcard.addNamed(file_ID, "GSC/"+FILENAME);
+		var request2 = sdcard.addNamed(file_ID, "GolfScoreCard/"+FILENAME);
 
 		request2.onsuccess = function () {
 			var name = this.result;

@@ -172,10 +172,10 @@ a.prev span, a.next span {
 #footerButton .ui-icon {
 	top: 5px;    
 	background-image: url("../themes/images/icons-36-white.png");
-    background-repeat: no-repeat;
+    	background-repeat: no-repeat;
 	border-radius: 18px 18px 18px 18px;
 	height: 36px;
-    width: 36px;
+    	width: 36px;
 	left: 40%;
 }
 
@@ -199,10 +199,23 @@ a.prev span, a.next span {
     background-image: url(../img/icons-36-white-back.png);
 }
 
+.ui-icon-mail {
+    background-image: url(../img/icons-18-white-mail.png);
+}
+
 
 
 /*Meteo img */
 .meteo {
 	 vertical-align:top;
 }
+
+
+
+/*for avoiding the truncate for the text */
+.ui-header .ui-title {
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
 
