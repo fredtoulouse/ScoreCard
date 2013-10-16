@@ -9,10 +9,10 @@
 //Add all javascript file requested by the software.
 
 //Platform support 
-platform="web"; //platform has three possible value : web, android, firefoxos
-//top_source="file:///home/blanchet/Travail/site/gsc/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
+platform="web"
+//top_source="file:///home/patrick/Documents/site/ScoreCard-master/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
 //top_source="file:///C:/Users/fblanche/Desktop/levignac/site/gsc/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
-top_source="/ScoreCard/site/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
+top_source="/ScoreCard/site/"
 //top_source="file:///android_asset/www/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
 //top_source="file:///android_asset/www/"; // The top root for the source, don't forget to complete with a '/' on the end of the directory
 
@@ -75,9 +75,9 @@ document.write('<script src="js/chrono.js"><\/script>');
 document.write('<script src="js/quit.js"><\/script>');
 
 
-if (platform == "android") {
-	document.write('<script src="js/store_api.js"><\/script>');
-}
+
+document.write('<script src="js/store_api.js"><\/script>');
+
 
 debugLog="";
 //log function

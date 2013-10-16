@@ -514,8 +514,6 @@ function on_mousemove(ev) {
 	if (!drawing)
 		return;
 
-	ScoreCardLog("PERF  canvas on_mousemove");
-
 	pos = GetPos(ev); //JSU WAS: var pos = {x: e.clientX, y: e.clientY};
 	
 	// draw
@@ -600,9 +598,8 @@ function initHw(idCanvas) {
 		//event for Mobile
 		//Catch event from mobile
 		canvas.bind('touchstart', function(e) {
-			ScoreCardLog("PERF  canvas.bind touchstart");
-			
-			//Set the top corner
+	
+		//Set the top corner
 			beginPos = {
 				x: this.offsetLeft,
 				y: this.offsetTop
@@ -614,25 +611,21 @@ function initHw(idCanvas) {
 		
 		// Relachement du doigt sur tout le document, j'arrete de dessiner :
 		$(this).bind('touchend', function() {
-			ScoreCardLog("PERF  this.bind touchend");
 			drawing = false;
 		});
 
 		canvas.bind('touchend', function() {
-			ScoreCardLog("PERF  canvas.bind touchend");
 			on_mouseup();
 		});
 		
 		// Mouvement du doigt sur le canvas :
 		canvas.bind('touchmove', function(e) {
-			ScoreCardLog("PERF  canvas.bind touchmove");
 			on_mousemove(e);
 		});
 		
 		//Event for Mouse
 		// Click souris enfonce sur le canvas, je dessine :
 		canvas.mousedown(function(e) {
-				ScoreCardLog("PERF  canvas mousedown");
 				
 				//Set the top corner
 				beginPos = {
@@ -646,12 +639,10 @@ function initHw(idCanvas) {
 		
 		// Relachement du Click sur tout le document, j'arrête de dessiner :
 		$(this).mouseup(function() {
-			ScoreCardLog("PERF  this mouseup");
 			drawing = false;
 		});
 
 		canvas.mouseup(function() {
-			ScoreCardLog("PERF  canvas mouseup");
 			on_mouseup();
 		});
 		

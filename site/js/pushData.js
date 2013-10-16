@@ -151,7 +151,7 @@ function generateHtmlScore (myScore, par, maxShot) {
 					corp_mail+='<td style="width: 8%; text-align: center;"><i>';
 					if (item != null) {
 						if ((item[cptNumCoup-1] != null) && (item[cptNumCoup] != null)) {
-							dist=Distance.getInstance().computeDistance(item[cptNumCoup-1][0], item[cptNumCoup-1][1], item[cptNumCoup][0], item[cptNumCoup][1]);
+							dist=Distance.getInstance().computeDistance(item[cptNumCoup-1][0], item[cptNumCoup-1][1], item[cptNumCoup][0], item[cptNumCoup][1],item[cptNumCoup-1][2],item[cptNumCoup][2]);
 						} else {
 							corp_mail+="N/A";
 						}
@@ -187,7 +187,7 @@ function generateKmlLocation (myScore, maxShot) {
 					if (item[cptNumCoup] != null) {
 						//0.0 is point with GPS not yet activated 
 						if (((item[cptNumCoup][0] != 0) && (item[cptNumCoup][1] != 0)) || ((item[cptNumCoup][1] != null)||(item[cptNumCoup][0] != null))) {
-							kml_files+='<Placemark><name>'+htmlEncode(jQuery.i18n.prop('msg_hole_number'))+(i+1)+' Coup '+(cptNumCoup+1)+'</name><Point><coordinates>'+item[cptNumCoup][1]+','+ item[cptNumCoup][0]+',0.000000</coordinates></Point></Placemark>\n';
+							kml_files+='<Placemark><name>'+htmlEncode(jQuery.i18n.prop('msg_hole_number'))+(i+1)+' '+jQuery.i18n.prop("msg_marq")+' '+(cptNumCoup+1)+' &rArr; ['+myScore.arrayResult[i]+']</name><Point><coordinates>'+item[cptNumCoup][1]+','+ item[cptNumCoup][0]+',0.000000</coordinates></Point></Placemark>\n';
 						}
 					}
 				}
@@ -246,9 +246,9 @@ function PushData()  {
 				var myHtmlData=generateHtmlScore(myScore, par, maxShot);
 				var myKmlData=generateKmlLocation (myScore, maxShot) 
 
-				var my_score_html = new StoreInfo (myHtmlData, "Golf Score Card.html");
+				var my_score_html = new StoreInfoAndroid (myHtmlData, "Golf Score Card.html");
 				if (maxShot != 0) {
-					var my_score_kml = new StoreInfo (myKmlData, "Golf Map.kml");
+					var my_score_kml = new StoreInfoAndroid (myKmlData, "Golf Map.kml");
  
 					/* for normal  use */
 					window.plugins.emailComposer.showEmailComposer(
@@ -277,22 +277,57 @@ function PushData()  {
 			
 			//FirefoxOS
 			case "firefoxos":
-				//Mail for firefox OS		
-				var myEmail = new mozActivity ({
-					name: "new",
-					data: {
-						type: ["mail"]
+				//Mail for firefox OS	
+				var maxShot=getMaxShot (myScore);
+				var myTxtMail=generateTxtScore(myScore, par);
+				var myHtmlData=generateHtmlScore(myScore, par, maxShot);
+				var myKmlData=generateKmlLocation (myScore, maxShot);
+				
+				StoreInfoFirefox (myHtmlData, "Golf Score Card.html");
+				if (maxShot != 0) {
+					var my_score_kml = new StoreInfoFirefox (myKmlData, "Golf Map.kml");
+					
+					var createEmail = new MozActivity({
+						name: "new", // Possibly compose-mail in future versions
+						data: {
+						    type : "mail",
+						    url: "mailto:"+Configuration.getInstance().playerEmail +
+								"?subject=" + encodeURIComponent(jQuery.i18n.prop('msg_score')+" " + myScore.nameGolf+ " " +myScore.date) + 
+								"&body=" + encodeURIComponent(myTxtMail)+"&attachment='/GolfScoreCard/Golf Score Card.html'"
+						}
+
+					});
+				
+					createEmail.onsuccess = function () {
+						ScoreCardLog("EMAIL SENT");
 					}
-				});
 				
-				myEmail.onsuccess = function () {
-					alert("ok email");
+					createEmail.onerror = function () {
+						// If an error occurred or the user canceled the activity
+						ScoreCardLog("ERROR MAIL");
+					};
+
+				} else {
+				
+					var createEmail = new MozActivity({
+						name: "new", // Possibly compose-mail in future versions
+						data: {
+						    type : "mail",
+						    url: "mailto:"+Configuration.getInstance().playerEmail +
+								"?subject=" + encodeURIComponent(jQuery.i18n.prop('msg_score')+" " + myScore.nameGolf+ " " +myScore.date) + 
+								"&body=" + encodeURIComponent(myTxtMail)
+						}
+					});
+				
+					createEmail.onsuccess = function () {
+						ScoreCardLog("EMAIL SENT");
+					}
+				
+					createEmail.onerror = function () {
+						// If an error occurred or the user canceled the activity
+						ScoreCardLog("ERROR MAIL");
+					};
 				}
-				
-				myEmail.onerror = function () {
-					// If an error occurred or the user canceled the activity
-					alert("NO MAIL");
-				};
 			break;
 		}
 	}

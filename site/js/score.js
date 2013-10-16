@@ -8,30 +8,26 @@ function Score()  {
 
 	var typeGolf;    //9 ou 18 trou 
 	var arrayResult; //tableau des scores
-	var currentHole; //tableau des scores
+	var currentHole; //id for the current playing hole
 	var nameGolf; //Nom du golf
 	var note; //Note sur la partie
 	var weather; //meteo 
 	var date; //Date 
 	var db; //registered in database
 	var previous; //registered in database
-	var arrayDistance; //tableau des distance
+	var arrayDistance; //tableau des distances et valeur entre chaque trace
 	
-	this.addDistance = function (latitude, longitude, precision) {
+	this.addDistance = function (latitude, longitude, precision, valTxt) {
 	
 		if ((latitude!=null) && (longitude!=null)) {
-			if (precision < 21) {//Si precision trop grande, alors point inutile
-				if ((latitude != 0) && (longitude !=0)) {
-					if (this.arrayDistance[this.currentHole] == null) {
-						this.arrayDistance[this.currentHole] = [[latitude, longitude]];
-					} else {
-						this.arrayDistance[this.currentHole].push([latitude, longitude]);
-					}
+			if ((latitude != 0) && (longitude !=0)) {
+				if (this.arrayDistance[this.currentHole] == null) {
+					this.arrayDistance[this.currentHole] = [[latitude, longitude,precision,valTxt]];
 				} else {
-					ScoreCardLog("GPS unavailable for this point");
+					this.arrayDistance[this.currentHole].push([latitude, longitude,precision,valTxt]);
 				}
 			} else {
-				ScoreCardLog("Accuracy not enough (>20) :" + precision);
+				ScoreCardLog("GPS unavailable for this point");
 			}
 		}
 	}
@@ -49,7 +45,7 @@ function Score()  {
 		this.previous.push(1);
 		
 		//Modif first entry
-		this.addDistance(latitude, longitude, precision);
+		this.addDistance(latitude, longitude, precision, "+1");
 		
 		this.store();
 		ScoreCardLog("PREVIOUS " +JSON.stringify(this.previous));
@@ -69,7 +65,13 @@ function Score()  {
 			this.arrayResult[this.currentHole]=this.arrayResult[this.currentHole]+parseInt(val);
 			if (parseInt(val) != 0) {
 				this.previous.push(parseInt(val));
-				this.addDistance(latitude, longitude, precision);
+				var txtVal="";
+				if (val >0) {
+					txtVal="+"+val;
+				} else {
+					txtVal=" "+val;
+				}
+				this.addDistance(latitude, longitude, precision, txtVal);
 			}		
 			this.store();
 			ScoreCardLog("PREVIOUS " +JSON.stringify(this.previous));
