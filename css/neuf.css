@@ -115,8 +115,8 @@ a.prev span, a.next span {
 	background-repeat: no-repeat;
 }
 
-.ui-icon-back {
-	background-image: url(../img/icons-18-white-back.png);
+.ui-icon-back2 {
+	background-image: url(../img/icons-18-white-back2.png);
 	background-repeat: no-repeat;
 }
 
@@ -125,7 +125,7 @@ a.prev span, a.next span {
 	background-repeat: no-repeat;
 }
 
-.ui-icon-quit, .ui-icon-help, .ui-icon-gear, .ui-icon-back, .ui-icon-home  {
+.ui-icon-quit, .ui-icon-help, .ui-icon-gear, .ui-icon-back2, .ui-icon-home  {
 	background-position: 0 50%;
 }
 
@@ -196,12 +196,15 @@ a.prev span, a.next span {
 }
 
 #footerButton .ui-icon-back2 {
-    background-image: url(../img/icons-36-white-back.png);
+    background-image: url(../img/icons-36-white-back2.png);
 }
 
 .ui-icon-mail {
     background-image: url(../img/icons-18-white-mail.png);
 }
+
+
+
 
 
 

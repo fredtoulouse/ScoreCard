@@ -19,15 +19,20 @@
 </head> 
 <body> 
 
-<div data-role="page" id="edit_S" >
+<div data-role="page" id="edit_S" data-theme="a">
 	<div data-role="header">
-		<h1 class="translate">msg_edit</h1>
+		<a href="neuf.html" data-role="button"  data-iconpos="left"  data-icon="back" class="translate"  data-prefetch >msg_carte_score</a>
 	</div>
-	<div data-role="content" >	
+	<div data-role="content" data-theme="a">	
+		<br/>
+		<h2 class="translate" style="text-align:center;">msg_edit</h2>
 		<label for="slider-score" ><div class="translate">msg_hole_number</div><code id="indexScore"></code></label>
 		<input type="range" name="slider-score" id="slider-score" value="1" min="0" max="15" />
-		<p><a href="neuf.html" data-role="button" data-theme="b" id="valideEditScore" class="translate">msg_carte_score</a></p>	
+		<p><a href="neuf.html" data-role="button" data-theme="b" id="valideEditScore" class="translate">msg_edit_valid</a></p>	
 	</div><!-- /content -->
+	
+	   
+	
 </div><!-- /page two --><!-- Start of third page: #popup -->
 
 

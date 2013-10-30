@@ -17,7 +17,6 @@ function Configuration()  {
 			{playerName: this.playerName, playerEmail: this.playerEmail, language: this.language, unit: this.unit, gps: this.gps, useHW:this.useHW}
 		);
 		localStorage["scorecard_preference"]=data;	
-		ScoreCardLog("Value Stored " + data);
 	}
 	
 	this.setPlayerName = function(val) {
@@ -75,7 +74,8 @@ function Configuration()  {
 		ScoreCardLog ("preference "+ data);
 		if(typeof(data)=='undefined'){
 			ScoreCardLog ("No preference stored, stored the default value");
-			this.store();
+			//this.store();
+			//DEBUG
 		} else {
 			ScoreCardLog ("Preference stored, get the value from local"+data);
 			var myTmp=JSON.parse(data);

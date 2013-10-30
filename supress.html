@@ -18,11 +18,32 @@
 </head> 
 <body> 
 
-<div data-role="page" id="confirm_supress">
-	<h2 class="translate">msg_confirm_supress</h2>
-	<div id="infoScore3"> Score de 4 belle perf beau Soleil</div>
-	<a href="consult.html" data-role="button" data-icon="alert" data-theme="e" id="confirmSupressScore"><div class="translate">msg_yes</div></a> 
-	<a href="consult.html" data-role="button" data-icon="delete"  data-rel="close" data-theme="b" ><div class="translate">msg_no</div></a>
+<div data-role="page" id="confirm_supress" data-theme="a">
+	
+	<div data-role="content" style="font-size:170%;" id="confirm_supress">	
+		<div style="display: inline"   class="translate">msg_confirm_supress</div><br><div style="display: inline" class="translate" id="infoScore3" >infoScore3</div>
+	</div>
+	
+	<div data-role="footer" data-position="fixed" id="myFooter"> 
+		<div class="ui-grid-a">
+			<div class="ui-block-a">
+				<a href="consult.html" data-role="button" data-icon="delete" data-transition="pop" data-ajax="false" data-theme="c"  >
+					<div class="translate">msg_no</div>
+				</a>
+			</div>
+			<div class="ui-block-b">
+				<a href="consult.html" data-role="button" data-icon="alert" data-theme="b" id="confirmSupressScore">
+				<!--<button type="submit" data-icon="alert" data-theme="b" id="confirmSupressScore">-->
+					<div class="translate">msg_yes</div>
+				<!--</button>-->
+				</a>
+			</div>
+		</div>
+	</div>
+
+
+
+
 </div>
 
 </body>

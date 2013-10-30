@@ -20,7 +20,6 @@ function Chrono()  {
 	var minu=0; //initialise les minutes
 	var htmlId;
 	var myTimer;
-	var myTimerFunction;
 	var onGoing=0;
 	
 	function zeroPad(num, places) {
@@ -48,7 +47,7 @@ function Chrono()  {
 		if (onGoing==0) {
 			onGoing=1;
 			htmlId.innerHTML=htmlId.innerHTML='<font color="#ff0000"><b>00:00</b></font>';
-			Chrono.getInstance().myTimer=window.setInterval("myTimerFunction()", 1000);
+			Chrono.getInstance().myTimer=window.setInterval(myTimerFunction, 1000);
 		}
 		
 	}

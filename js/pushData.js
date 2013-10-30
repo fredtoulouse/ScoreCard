@@ -63,8 +63,6 @@ function generateHtmlScore (myScore, par, maxShot) {
 
 	corp_mail+='<table border="0" style="width: 100%;"><tbody>\n';
 	
-	/*
-	
 	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_player_name'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(Configuration.getInstance().playerName)+'<br /></td></tr>\n';
 	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_golf_name'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(myScore.nameGolf)+'<br /></td></tr>\n';
 	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_date'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(myScore.date)+'<br /></td></tr>\n';
@@ -72,18 +70,6 @@ function generateHtmlScore (myScore, par, maxShot) {
 	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_climat'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(jQuery.i18n.prop(myScore.weather))+'<br /></td></tr>\n';
 	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_golf_note'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(myScore.note)+'<br /></td></tr>\n';
 	corp_mail+='</tbody></table><br />\n';
-	
-	*/
-	
-	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_player_name'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(Configuration.getInstance().playerName)+'<br /></td></tr>\n';
-	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_golf_name'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(myScore.nameGolf)+'<br /></td></tr>\n';
-	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_date'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(myScore.date)+'<br /></td></tr>\n';
-	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_type'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(myScore.typeGolf)+'<br /></td></tr>\n';
-	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_climat'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(jQuery.i18n.prop(myScore.weather))+'<br /></td></tr>\n';
-	corp_mail+='<tr><td style="width: 50%;"><b>'+htmlEncode(jQuery.i18n.prop('msg_golf_note'))+'</b> &nbsp;</td><td style="width: 50%;">'+htmlEncode(myScore.note)+'<br /></td></tr>\n';
-	corp_mail+='</tbody></table><br />\n';
-	
-	
 	
 	corp_mail+='<p><table border="1" style="width: 100%"><tbody>\n';
 	
@@ -217,15 +203,22 @@ function generateKmlLocation (myScore, maxShot) {
 
 }
 
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
 
 function PushData()  {  
 	this.mail = function(myScore, par) {  
 		ScoreCardLog("Send email with " + platform);	
 				
-		ScoreCardLog("Send Score BY EMAIL tp : " + Configuration.getInstance().playerEmail);
-		
-
+		ScoreCardLog("Send Score BY EMAIL to : " + Configuration.getInstance().playerEmail);
 		
 		switch (platform){
 			case "web":
@@ -280,20 +273,37 @@ function PushData()  {
 				//Mail for firefox OS	
 				var maxShot=getMaxShot (myScore);
 				var myTxtMail=generateTxtScore(myScore, par);
+				
+				randomId=makeid();
+				
 				var myHtmlData=generateHtmlScore(myScore, par, maxShot);
 				var myKmlData=generateKmlLocation (myScore, maxShot);
 				
-				StoreInfoFirefox (myHtmlData, "Golf Score Card.html");
+				
+				StoreInfoFirefox (myHtmlData, "Golf Score Card"+jQuery.i18n.prop('msg_score')+"_" + myScore.nameGolf+ "_" +myScore.date+"_"+randomId+".html");
+				
+				/*
+				var aHTMLPart = [myHtmlData];
+				var oHTMLBlob = new Blob(aHTMLPart, {type : 'text/html'}); 
+				var url = URL.createObjectURL(oHTMLBlob);
+				ScoreCardLog ("url = "+ url);
+				*/
+				
 				if (maxShot != 0) {
-					var my_score_kml = new StoreInfoFirefox (myKmlData, "Golf Map.kml");
+					StoreInfoFirefox (myKmlData, "Golf Map"+jQuery.i18n.prop('msg_score')+" " + myScore.nameGolf+ " " +myScore.date+"_"+randomId+".kml");
+					
+					/*var aKMLPart = [myKmlData];
+					var oKMLBlob = new Blob(oKMLBlob, {type : 'text/xml'}); // the blob
 					
 					var createEmail = new MozActivity({
-						name: "new", // Possibly compose-mail in future versions
+						name: "new", 
 						data: {
-						    type : "mail",
-						    url: "mailto:"+Configuration.getInstance().playerEmail +
-								"?subject=" + encodeURIComponent(jQuery.i18n.prop('msg_score')+" " + myScore.nameGolf+ " " +myScore.date) + 
-								"&body=" + encodeURIComponent(myTxtMail)+"&attachment='/GolfScoreCard/Golf Score Card.html'"
+							type : "mail",
+							url: "mailto:"+Configuration.getInstance().playerEmail +
+								"?subject=" + encodeURIComponent(jQuery.i18n.prop('msg_score')+"_" + myScore.nameGolf+ "_" +myScore.date) + 
+								"&body=" + encodeURIComponent(myTxtMail+"\n\n"+debugLog),
+							attachmentNames: ["Golf Score Card.html","Golf Map.kml"],
+							attachmentBlobs: [oHTMLBlob, oKMLBlob]
 						}
 
 					});
@@ -305,29 +315,32 @@ function PushData()  {
 					createEmail.onerror = function () {
 						// If an error occurred or the user canceled the activity
 						ScoreCardLog("ERROR MAIL");
-					};
+					};*/
 
-				} else {
+				} /*else {*/
 				
-					var createEmail = new MozActivity({
-						name: "new", // Possibly compose-mail in future versions
-						data: {
-						    type : "mail",
-						    url: "mailto:"+Configuration.getInstance().playerEmail +
-								"?subject=" + encodeURIComponent(jQuery.i18n.prop('msg_score')+" " + myScore.nameGolf+ " " +myScore.date) + 
-								"&body=" + encodeURIComponent(myTxtMail)
-						}
-					});
 				
-					createEmail.onsuccess = function () {
-						ScoreCardLog("EMAIL SENT");
+				var createEmail = new MozActivity({
+					name: "new", 
+					data: {
+						type : "mail",
+						url: "mailto:"+Configuration.getInstance().playerEmail +
+							"?subject=" + encodeURIComponent(jQuery.i18n.prop('msg_score')+" " + myScore.nameGolf+ " " +myScore.date) + 
+							"&body=" + encodeURIComponent(myTxtMail)
 					}
-				
-					createEmail.onerror = function () {
-						// If an error occurred or the user canceled the activity
-						ScoreCardLog("ERROR MAIL");
-					};
+				});
+			
+				createEmail.onsuccess = function () {
+					ScoreCardLog("EMAIL SENT");
 				}
+			
+				createEmail.onerror = function () {
+					// If an error occurred or the user canceled the activity
+					ScoreCardLog("ERROR MAIL");
+				};
+					
+					
+				//}
 			break;
 		}
 	}

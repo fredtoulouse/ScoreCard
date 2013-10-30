@@ -6,6 +6,11 @@
 
 
 $( '#reset_page' ).live( 'pageshow',function(event){
+	ScoreCardLog("Center the text in the Reset page");
+	$('#content-reset').css('margin-top',($(window).height() - $('[data-role=footer]').height() - $('#content-reset').outerHeight())/2);
+});
+
+$( '#reset_page' ).live( 'pageshow',function(event){
 	
 	ScoreCardLog("Reset PAGE INIT ");
 	

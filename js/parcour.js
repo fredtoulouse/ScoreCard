@@ -60,21 +60,23 @@ $( '#parcour' ).live( 'pageshow',function(event){
 $('#neuf_link').live('click', function()  {
     	ScoreCardLog("Click !!!! new SCORE ");
 	Score.getInstance().reset();
-	ScoreCardLog("Click !!!! new SCORE ");
 	
 	Score.getInstance().note=Cache.getInstance().CACHE_SC_GOLF_NAME_NOTE.val();
 	Score.getInstance().weather=Cache.getInstance().CACHE_SC_SELECT_CHOICE_WHEATER.find(":selected").val();
 	Score.getInstance().date=Cache.getInstance().CACHE_SC_SELECT_CHOICE_YEAR.val()+"-"+ Cache.getInstance().CACHE_SC_SELECT_CHOICE_MONTH.val()+"-"+Cache.getInstance().CACHE_SC_SELECT_CHOICE_DAY.val();
 	
 	if (Cache.getInstance().CACHE_SC_GOLF_NAME.textContent == jQuery.i18n.prop("msg_other") ) {
-		ScoreCardLog("NAME 2 " + Cache.getInstance().CACHE_SC_GOLF_NAME_INPUT.val());
+		ScoreCardLog("NAME" + Cache.getInstance().CACHE_SC_GOLF_NAME_INPUT.val());
 		Score.getInstance().nameGolf=Cache.getInstance().CACHE_SC_GOLF_NAME_INPUT.val();
 		Score.getInstance().db=1;
 	} else {
-		ScoreCardLog("NAME AAAA " + Cache.getInstance().CACHE_SC_GOLF_NAME.textContent);
+		ScoreCardLog("NAME " + Cache.getInstance().CACHE_SC_GOLF_NAME.textContent);
 		Score.getInstance().nameGolf=Cache.getInstance().CACHE_SC_GOLF_NAME.textContent;
 		Score.getInstance().db=0;
 	}
+	
+	//Set the type of the Golf
+	//Score.getInstance().typeGolf=6;
 	
 	Score.getInstance().store();
 	

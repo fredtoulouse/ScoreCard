@@ -140,10 +140,10 @@ this.generateList = function() {
 
 this.updateInfoScore = function(item, id) {  
 	if (item != null) {
-		$('#infoScore'+id)[0].innerHTML= "<h2>"+item[1]+"</h2><h3>"+item[0]+"</br></h3>"+jQuery.i18n.prop("msg_player_name")+":"+item[2]+"</br>"+jQuery.i18n.prop("msg_climat")+":";
-		$('#infoScore'+id)[0].innerHTML=$('#infoScore'+id)[0].innerHTML+"<IMG class='meteo' SRC='img/"+item[3]+".png' ALT='"+jQuery.i18n.prop(item[3])+"'></br>"
-		$('#infoScore'+id)[0].innerHTML= $('#infoScore'+id)[0].innerHTML+jQuery.i18n.prop("msg_golf_note")+":"+item[4]+"</br>";
-		$('#infoScore'+id)[0].innerHTML= $('#infoScore'+id)[0].innerHTML+jQuery.i18n.prop("msg_result_score")+"&nbsp;:&nbsp;"+Score.getInstance().computeAnotherResult(item[6])+"</br>";
+		$('#infoScore'+id)[0].innerHTML= "<h3>"+item[1]+"</h3><h4>"+item[0]+"<br/></h4>"+jQuery.i18n.prop("msg_player_name")+":"+item[2]+"<br/>"+jQuery.i18n.prop("msg_climat")+":";
+		$('#infoScore'+id)[0].innerHTML=$('#infoScore'+id)[0].innerHTML+"<IMG class='meteo' SRC='img/"+item[3]+".png' ALT='"+jQuery.i18n.prop(item[3])+"'><br/>"
+		$('#infoScore'+id)[0].innerHTML= $('#infoScore'+id)[0].innerHTML+"<div style='font-size:75%;'>"+jQuery.i18n.prop("msg_golf_note")+":"+item[4]+"</div></br>";
+		$('#infoScore'+id)[0].innerHTML= $('#infoScore'+id)[0].innerHTML+"<div style='font-size:75%;'>"+jQuery.i18n.prop("msg_result_score")+"&nbsp;:&nbsp;"+Score.getInstance().computeAnotherResult(item[6])+"</div><br/>";
 	}
 }
 

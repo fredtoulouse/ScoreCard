@@ -79,6 +79,7 @@ case "$cible" in
 		android_export
 		echo "Android" ;;
 	"web")
+		web_export
 		echo "WEB" ;;
 	"firefoxos")
 		echo "firefoxos" ;;

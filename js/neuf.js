@@ -85,6 +85,8 @@ this.updateValue = function() {
 				
 				
 			}
+		} else {
+			//Cache.getInstance().CACHE_SC_T[i].hide() //TOTO
 		}
 		
 	})
@@ -106,7 +108,7 @@ this.updateValue = function() {
 		if (myPosition.hcp[Score.getInstance().currentHole] != null) {
 			Cache.getInstance().CACHE_SC_INFOHCP.innerHTML=" HCP : " +myPosition.hcp[Score.getInstance().currentHole];
 		} else {
-			Cache.getInstance().CACHE_SC_INFOHCP.innerHTML=" HCP: N/A"
+			Cache.getInstance().CACHE_SC_INFOHCP.innerHTML=" ";
 		}
 	}
 }  
@@ -156,7 +158,18 @@ $( '#neuf' ).live( 'pagehide',function(event){
 })
 
 $( '#neuf' ).live( 'pagebeforeshow',function(event){
-	ScoreCardLog("FBM PAGES BEFORE SHOW NEUF");
+	ScoreCardLog("pagebeforeshow Call");
+	
+	//Remove unused Hole
+	/*Score.getInstance().arrayResult.forEach(function(item, i) {
+		if (i >= Score.getInstance().typeGolf) {
+			if ($('#carte_score')[0].childNodes[i]!=null) {
+				$('#carte_score')[0].childNodes[i].remove();
+			}
+			//Cache.getInstance().CACHE_SC_T[i].parentNode.removeChild(Cache.getInstance().CACHE_SC_T[i]); //TOTO
+		}
+	})*/
+	
 	
 	//FBM a voir si on doit le deplacer sur l'init ou le laisser sur pageshow
 	myScoreDisplay.init("#carte_score", "#prev", "#next");
@@ -188,10 +201,29 @@ $( '#neuf' ).live( 'pagebeforeshow',function(event){
 
 	ScoreCardLog("Try to load :"+top_source+"db/"+Score.getInstance().nameGolf+".js");
 
+
 	if (Score.getInstance().db==0)  {
-		$.getScript(top_source+"db/"+Score.getInstance().nameGolf+".js", function(){
+		//document.write(top_source+"db/"+Score.getInstance().nameGolf+".js");
+		
+		$.ajax({	
+			url:        top_source+"db/"+Score.getInstance().nameGolf+".json",
+			async:      false,
+			cache:	false,
+			contentType:'text/plain;charset=UTF-8',
+			dataType:   'text',
+			success:    function(data, status) {
+						myPosition=JSON.parse(data);
+						myPosition.arrayPar.forEach(function(item, i) {
+							Cache.getInstance().CACHE_SC_SCORE_PAR[i][0].innerHTML="Par<br>"+item;
+						})
+					}
+		});
+		
+		/*
+		$.getScript(top_source+"db/"+Score.getInstance().nameGolf+".json", function(){
 			ScoreCardLog(top_source+"db/"+Score.getInstance().nameGolf+".js  loaded");
-			
+		
+		
 			try {
 				//Initialiser la carte du PAR avec les positions
 				myPosition=new Position();
@@ -199,28 +231,31 @@ $( '#neuf' ).live( 'pagebeforeshow',function(event){
 				eval(xhr);
 				myPosition=new Position();
 			}
-				
+
+
+			var tutu=JSON.stringify (myPosition);
+			var titi=JSON.parse(tutu);
+			console.log ("JSON\n---------------------\n%s\n---------------------\n",  tutu);
+			
 			myPosition.arrayPar.forEach(function(item, i) {
-				//$('#score_par'+i)[0].innerHTML="Par<br>"+item;
 				Cache.getInstance().CACHE_SC_SCORE_PAR[i][0].innerHTML="Par<br>"+item;
 			})
-		});
+		});*/
 	} else {
-		$.getScript(top_source+"db/"+"other.js", function(){
-			ScoreCardLog(top_source+"db/other.js  loaded");
-			
-			try {
-				//Initialiser la carte du PAR avec les positions
-				myPosition=new Position();
-			} catch(err) {
-				eval(xhr);
-				myPosition=new Position();
-			}
-			
-			myPosition.arrayPar.forEach(function(item, i) {
-			//$('#score_par'+i)[0].innerHTML="Par<br>ND";
-			Cache.getInstance().CACHE_SC_SCORE_PAR[i][0].innerHTML="Par<br>ND";
-			})
+		//document.write(top_source+"db/"+"other.js");
+		
+		$.ajax({	
+			url:        top_source+"db/"+"other.json",
+			async:      false,
+			cache:	false,
+			contentType:'text/plain;charset=UTF-8',
+			dataType:   'text',
+			success:    function(data, status) {
+						myPosition=JSON.parse(data);
+						myPosition.arrayPar.forEach(function(item, i) {
+							Cache.getInstance().CACHE_SC_SCORE_PAR[i][0].innerHTML="Par<br>ND";
+						})
+					}
 		});
 	}
 	
@@ -257,9 +292,17 @@ $( '#edit_S' ).live( 'pageshow',function(event){
 	Cache.getInstance().CACHE_SC_VALIDEEDITSCORE.on('click',function(event, ui){
 	//$('#valideEditScore').on('click',function(event, ui){
 		ScoreCardLog("New score  " + $('#slider-score').val());
-		//Score.getInstance().arrayResult[editScore]= parseInt($('#slider-score').val());
 		Score.getInstance().arrayResult[editScore]= parseInt(Cache.getInstance().CACHE_SC_SLIDER_SCORE.val());
+		
+		//Remove all geo information now, an edit erase all position information
+		Score.getInstance().arrayDistance[editScore] = null;
+		
+		//Store the current store
 		Score.getInstance().store();
+		
+		//Show in css that this score has been modified 
+		$('#t'+editScore).addClass("edit");
+		
 	});
 
 })
@@ -279,7 +322,7 @@ function TapBindEvent(element) {
 
 			var myRegex = /[0-9]+/
 			
-			$('#'+event.currentTarget.id).addClass("edit");
+			/*$('#'+event.currentTarget.id).addClass("edit");*/
 			editScore=myRegex.exec(event.currentTarget.id)
 			$.mobile.changePage('edit.html', 'pop', true, true);
 		}
@@ -302,6 +345,9 @@ $( '#neuf' ).live( 'pageinit',function(event){
 	//Init the chronometer
 	Chrono.getInstance().init();
 
+
+	//Test the collapse
+	
 
 	Cache.getInstance().CACHE_SC_REMSCORE.on('click',function(event, ui){
 		//other code

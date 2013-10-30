@@ -6,6 +6,7 @@
 
 	
 $( '#one' ).live( 'pageinit',function(event){
+	
 	//Init jquery-cache 
 	Cache.getInstance().init("menu.js");
 
@@ -14,6 +15,8 @@ $( '#one' ).live( 'pageinit',function(event){
 	if(typeof(data)=='undefined'){
 		$.mobile.changePage('first_start.html', {transition: 'pop', role: 'page'});   
 	}
+	
+	
 });
 
 $( '#one' ).live( 'pageshow',function(event){

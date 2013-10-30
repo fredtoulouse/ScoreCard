@@ -18,25 +18,26 @@
 </head> 
 <body> 
 
-<div data-role="page" id="quit_page" data-close-btn="none">
+<div data-role="page" id="quit_page" data-close-btn="none" data-theme="a">
 
-	<div data-role="header" data-position="fixed">
-	<div style="text-align: center;">
-	<h2 style="display: inline"  class="translate">msg_quit</h2>
+	<div data-role="content" id="content-quit">	
+		<div  style="font-size:170%;" class="translate">msg_quit</div>
 	</div>
+	
+	<div data-role="footer" data-position="fixed" id="myFooter"> 
+		<div class="ui-grid-a">
+			<div class="ui-block-a">
+				<a href="menu.html" data-role="button" data-icon="delete" data-transition="pop" data-ajax="false" data-theme="c"  >
+					<div class="translate">msg_no</div>
+				</a>
+			</div>
+			<div class="ui-block-b">
+				<button type="submit" data-icon="alert" data-theme="b" id="quitScore">
+					<div class="translate">msg_yes</div>
+				</button>
+			</div>
+		</div>
 	</div>
-	<!-- /header -->
-
-<!-- MODIF bigButton -->
-	<div data-role="content" id="bigButton">	
-		<button type="submit" data-icon="alert" data-theme="e" id="quitScore"><div class="translate">msg_yes</div></button>
-
-		<a href="menu.html" data-role="button" data-icon="delete" data-transition="pop" data-ajax="false" data-theme="b"  >
-		<div class="translate">msg_no</div></a>
-		
-	</div><!-- /content -->
-
-		
 </div>
 
 </body>

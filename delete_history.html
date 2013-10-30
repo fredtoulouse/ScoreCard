@@ -18,28 +18,27 @@
 </head> 
 <body>  
 
-<div data-role="page" id="delete_history_page" data-close-btn="none">
+<div data-role="page" id="delete_history_page" data-close-btn="none" data-theme="a">
 
-	<div data-role="header" data-position="fixed">
-	<div style="text-align: center;">
-	<h2>
-	<div style="display: inline"  class="translate">msg_confirm</div><br /><div style="display: inline"  class="translate">msg_clear_history</div>
-	</h2>
+	<div data-role="content" style="font-size:170%;"  id="content-delete_history">	
+		<div style="display: inline"    class="translate">msg_confirm</div><br /><div style="display: inline"  class="translate">msg_clear_history</div>
 	</div>
+	
+	<div data-role="footer" data-position="fixed" id="myFooter"> 
+		<div class="ui-grid-a">
+			<div class="ui-block-a">
+				<a href="menu.html" data-role="button" data-icon="delete" data-transition="pop" data-ajax="false" data-theme="c"  >
+					<div class="translate">msg_no</div>
+				</a>
+			</div>
+			<div class="ui-block-b">
+				<button type="submit" data-icon="alert" data-theme="b" id="delete_history">
+					<div class="translate">msg_yes</div>
+				</button>
+			</div>
+		</div>
 	</div>
-	<!-- /header -->
 
-<!-- MODIF bigButton -->
-	<div data-role="content" id="bigButton">	
-		<!--<a href="menu.html" data-role="button" data-icon="alert" data-transition="pop" data-ajax="false" data-theme="e" id="delete_history" >
-		<div class="translate">msg_yes</div></a> -->
-		
-		<button type="submit" data-icon="alert" data-theme="e" id="delete_history"><div class="translate">msg_yes</div></button>
-		
-		<a href="menu.html" data-role="button" data-icon="delete" data-transition="pop" data-ajax="false" data-theme="b"  >
-		<div class="translate">msg_no</div></a>
-		
-	</div><!-- /content -->
 
 		
 </div>

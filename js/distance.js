@@ -94,9 +94,9 @@ function Distance()  {
 		t5 = t1 + t4;
 		rad_dist = Math.atan(-t5/Math.sqrt(-t5 * t5 +1)) + 2 * Math.atan(1);
 		if (meter == 1) {
-			return parseInt((rad_dist * 3437.74677 * 1.1508) * 1609.3470878864446)+" m &#177; "+(accu_a_check+accu_b_check)+" m";
+			return parseInt((rad_dist * 3437.74677 * 1.1508) * 1609.3470878864446)+" m &#177; "+(accu_a_check+accu_b_check)+" m ";
 		} else {
-			return parseInt((rad_dist * 3437.74677 * 1.1508) * 1609.3470878864446*0.9144)+" yards &#177; "+((accu_a_check+accu_b_check)*0.9144)+" yards";
+			return parseInt((rad_dist * 3437.74677 * 1.1508) * 1609.3470878864446*0.9144)+" yards &#177; "+((accu_a_check+accu_b_check)*0.9144)+" yards ";
 		}
 		
 		return parseInt((rad_dist * 3437.74677 * 1.1508) * 1609.3470878864446);
@@ -146,7 +146,7 @@ function Distance()  {
 	
 	this.getDistance = function() {
 		//Calule la distance du green 
-		dist="N/A";
+		dist="&nbsp;&nbsp;&nbsp;";
 		if (myPosition != null) {
 			if (myError=="") {
 				dist=this.computeDistance(myPosition.arrayPosition[Score.getInstance().currentHole][0], myPosition.arrayPosition[Score.getInstance().currentHole][1], 

@@ -254,6 +254,7 @@ function loadAndParseFile(filename, settings) {
 
 /** Parse .properties files */
 function parseData(data, mode) {
+
    var parsed = '';
    var parameters = data.split( /\n/ );
    var regPlaceHolder = /(\{\d+\})/g;
@@ -324,7 +325,7 @@ function parseData(data, mode) {
            } // END: if(pair.length > 0)
        } // END: skip comments
    }
-   eval(parsed);
+   //eval(parsed); //FBM for Firefox OS support
 }
 
 /** Make sure namespace exists (for keys with dots in name) */
@@ -337,9 +338,9 @@ function checkKeyNamespace(key) {
 		for(var i=0; i<names.length; i++) {
 			if(i>0) {fullname += '.';}
 			fullname += names[i];
-			if(eval('typeof '+fullname+' == "undefined"')) {
+			/*if(eval('typeof '+fullname+' == "undefined"')) {
 				eval(fullname + '={};');
-			}
+			} For FirefoxOS support*/
 		}
 	}
 }

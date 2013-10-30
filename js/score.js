@@ -19,15 +19,19 @@ function Score()  {
 	
 	this.addDistance = function (latitude, longitude, precision, valTxt) {
 	
-		if ((latitude!=null) && (longitude!=null)) {
-			if ((latitude != 0) && (longitude !=0)) {
-				if (this.arrayDistance[this.currentHole] == null) {
-					this.arrayDistance[this.currentHole] = [[latitude, longitude,precision,valTxt]];
-				} else {
-					this.arrayDistance[this.currentHole].push([latitude, longitude,precision,valTxt]);
-				}
+		/*if ((latitude!=null) && (longitude!=null)) {*/
+		if ((latitude != 0) && (longitude !=0)) {
+			if (this.arrayDistance[this.currentHole] == null) {
+				this.arrayDistance[this.currentHole] = [[latitude, longitude,precision,valTxt]];
 			} else {
-				ScoreCardLog("GPS unavailable for this point");
+				this.arrayDistance[this.currentHole].push([latitude, longitude,precision,valTxt]);
+			}
+		} else {
+			ScoreCardLog("GPS unavailable for this point");
+			if (this.arrayDistance[this.currentHole] == null) {
+				this.arrayDistance[this.currentHole] = [[null, null,1,valTxt]];
+			} else {
+				this.arrayDistance[this.currentHole].push([null, null,1,valTxt]);
 			}
 		}
 	}
@@ -51,12 +55,13 @@ function Score()  {
 		ScoreCardLog("PREVIOUS " +JSON.stringify(this.previous));
 	}  
 
+/*
 	this.finishHole = function() {  
 		ScoreCardLog("finishHole "+ this.arrayResult[this.currentHole]);
 		this.arrayResult[this.currentHole]="12";
 		this.store();
 		this.validCurrentHole();
-	}  
+	}  */
 
 	this.addValCurrentHole = function(val, latitude, longitude, precision) {  
 		ScoreCardLog("addCurrentHole " + this.arrayResult[this.currentHole]);

@@ -15,7 +15,8 @@ $( '#list_parcours' ).live( 'pageinit',function(event){
 		//Initialiser la carte du PAR avec les positions
 		myGolf = listGolf;
 	} catch(err) {
-		eval(xhr);
+		//eval(xhr);
+		ScoreCardLog("ERROR Try a new one ?");
 		myGolf = listGolf;
 	}
 			

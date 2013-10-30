@@ -24,7 +24,7 @@ function Intertionalisation(lang)  {
 	jQuery.i18n.properties({
 		name:'Messages', 
 		path:top_source+'lang/', 
-		mode:'both',
+		mode:'map',
 		language:lang, 
 		callback: function() {
 			myThis.updateAllMsg();
