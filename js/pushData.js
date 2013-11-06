@@ -10,6 +10,12 @@ function htmlEncode(value){
 	/*unescape(encodeURIComponent($('<div/>').text(value).html()));*/
 }
 
+function htmlDecode(value){
+	return $('<div/>').html(value).text();
+	
+}
+
+
 
 function generateTxtScore (myScore, par) {
 	var corp_mail = 	jQuery.i18n.prop('msg_player_name')+":\t"+Configuration.getInstance().playerName +"\n"+
@@ -129,17 +135,21 @@ function generateHtmlScore (myScore, par, maxShot) {
 			corp_mail+='<td style="width: 8%; text-align: center;background:#d6e3bc"><i>'+(i+1)+'</i></td>\n';
 		}
 		corp_mail+='</tr><br />\n';
-
+		//jQuery.i18n.prop("msg_marq")+(n+1)+" &rArr; ["+one_pos[3]+"]";
 		for (var cptNumCoup=0;cptNumCoup< maxShot;cptNumCoup++) {
-			corp_mail+='<tr><td style="width: 8%; text-align: center;background:#d6e3bc"><i>Coup '+cptNumCoup+'</i></td>\n';
+			corp_mail+='<tr><td style="width: 8%; text-align: center;background:#d6e3bc"><i> '+jQuery.i18n.prop("msg_marq")+(cptNumCoup+1)+'</i></td>\n';
 			myScore.arrayDistance.forEach(function(item, i) {
 				if (i < myScore.typeGolf) {
 					corp_mail+='<td style="width: 8%; text-align: center;"><i>';
 					if (item != null) {
 						if ((item[cptNumCoup-1] != null) && (item[cptNumCoup] != null)) {
 							dist=Distance.getInstance().computeDistance(item[cptNumCoup-1][0], item[cptNumCoup-1][1], item[cptNumCoup][0], item[cptNumCoup][1],item[cptNumCoup-1][2],item[cptNumCoup][2]);
+							corp_mail+="&#x21d1;"+dist;
+							corp_mail+="<br/>["+item[cptNumCoup][3]+"]";
+						} else if (item[cptNumCoup] != null){
+							corp_mail+="["+item[cptNumCoup][3]+"]";
 						} else {
-							corp_mail+="N/A";
+							corp_mail+="-";
 						}
 					} else {
 						corp_mail+="N/A";
@@ -161,8 +171,8 @@ function generateHtmlScore (myScore, par, maxShot) {
 
 function generateKmlLocation (myScore, maxShot) {
 	var kml_files="";
-	kml_files='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Document><name>'+htmlEncode(myScore.nameGolf)+" "+htmlEncode(myScore.date)+'</name>\n';
-	kml_files+='<description><![CDATA['+htmlEncode(myScore.note)+'\n'+htmlEncode(jQuery.i18n.prop(myScore.weather))+']]></description>';
+	kml_files='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>'+htmlDecode(myScore.nameGolf)+" "+htmlDecode(myScore.date)+'</name>\n';
+	kml_files+='<description><![CDATA['+htmlDecode(myScore.note)+'\n'+htmlDecode(jQuery.i18n.prop(myScore.weather))+']]></description>';
 
 	myScore.arrayDistance.forEach(function(item, i) {
 		if (i < myScore.typeGolf) {
@@ -173,26 +183,28 @@ function generateKmlLocation (myScore, maxShot) {
 					if (item[cptNumCoup] != null) {
 						//0.0 is point with GPS not yet activated 
 						if (((item[cptNumCoup][0] != 0) && (item[cptNumCoup][1] != 0)) || ((item[cptNumCoup][1] != null)||(item[cptNumCoup][0] != null))) {
-							kml_files+='<Placemark><name>'+htmlEncode(jQuery.i18n.prop('msg_hole_number'))+(i+1)+' '+jQuery.i18n.prop("msg_marq")+' '+(cptNumCoup+1)+' &rArr; ['+myScore.arrayResult[i]+']</name><Point><coordinates>'+item[cptNumCoup][1]+','+ item[cptNumCoup][0]+',0.000000</coordinates></Point></Placemark>\n';
+							kml_files+='<Placemark><name>'+htmlDecode(jQuery.i18n.prop('msg_hole_number'))+" "+(i+1)+' '+htmlDecode(jQuery.i18n.prop("msg_marq"))+' '+(cptNumCoup+1)+' ['+/*myScore.arrayResult[i]*/item[cptNumCoup][3]+']</name><Point><coordinates>'+item[cptNumCoup][1]+','+ item[cptNumCoup][0]+',0.000000</coordinates></Point></Placemark>\n';
 						}
 					}
 				}
 				
 			}
 			//place the line
-			kml_files+='<Placemark><name>'+htmlEncode(jQuery.i18n.prop('msg_hole_number'))+(i+1)+'</name><LineString><tessellate>1</tessellate><coordinates>';
-			for (var cptNumCoup=0;cptNumCoup<maxShot;cptNumCoup++) {
-				if (item != null) {
-					if (item[cptNumCoup] != null) {
-						//0.0 is point with GPS not yet activated 
-						if (((item[cptNumCoup][0] != 0) && (item[cptNumCoup][1] != 0)) || ((item[cptNumCoup][1] != null)||(item[cptNumCoup][0] != null))) {
-							kml_files+=item[cptNumCoup][1]+','+ item[cptNumCoup][0]+',0.000000 \n';
+			
+			if (item != null) {
+				if (item[0] != null) { //Save no line if any position are stored for this hole
+					kml_files+='<Placemark><name>'+htmlDecode(jQuery.i18n.prop('msg_hole_number'))+" "+(i+1)+'</name><LineString><tessellate>1</tessellate><coordinates>';
+					for (var cptNumCoup=0;cptNumCoup<maxShot;cptNumCoup++) {
+						if (item[cptNumCoup] != null) {
+							//0.0 is point with GPS not yet activated 
+							if (((item[cptNumCoup][0] != 0) && (item[cptNumCoup][1] != 0)) || ((item[cptNumCoup][1] != null)||(item[cptNumCoup][0] != null))) {
+								kml_files+=item[cptNumCoup][1]+','+ item[cptNumCoup][0]+',0.000000 \n';
+							}
 						}
 					}
+					kml_files+='</coordinates></LineString></Placemark>\n';
 				}
-				
 			}
-			kml_files+='</coordinates></LineString></Placemark>\n';
 			//Next tee
 		}
 	})	
@@ -279,21 +291,26 @@ function PushData()  {
 				var myHtmlData=generateHtmlScore(myScore, par, maxShot);
 				var myKmlData=generateKmlLocation (myScore, maxShot);
 				
+				console.log ("HTML------------------------\n%s\n-----------------", myHtmlData);
+				
+				console.log ("KML------------------------\n%s\n-----------------", myKmlData);
 				
 				StoreInfoFirefox (myHtmlData, "Golf Score Card"+jQuery.i18n.prop('msg_score')+"_" + myScore.nameGolf+ "_" +myScore.date+"_"+randomId+".html");
 				
-				/*
-				var aHTMLPart = [myHtmlData];
+				
+				/*var aHTMLPart = [myHtmlData];
 				var oHTMLBlob = new Blob(aHTMLPart, {type : 'text/html'}); 
-				var url = URL.createObjectURL(oHTMLBlob);
-				ScoreCardLog ("url = "+ url);
-				*/
+				var urlHtml = URL.createObjectURL(oHTMLBlob);
+				ScoreCardLog ("url = "+ url);*/
+				
 				
 				if (maxShot != 0) {
 					StoreInfoFirefox (myKmlData, "Golf Map"+jQuery.i18n.prop('msg_score')+" " + myScore.nameGolf+ " " +myScore.date+"_"+randomId+".kml");
-					
-					/*var aKMLPart = [myKmlData];
+					/*
+					var aKMLPart = [myKmlData];
 					var oKMLBlob = new Blob(oKMLBlob, {type : 'text/xml'}); // the blob
+					var urlKml = URL.createObjectURL(oKMLBlob);
+					
 					
 					var createEmail = new MozActivity({
 						name: "new", 
@@ -316,8 +333,59 @@ function PushData()  {
 						// If an error occurred or the user canceled the activity
 						ScoreCardLog("ERROR MAIL");
 					};*/
+					
+					//Today the only way to share file with email is the share activity so couldn't edit the content of the mail :-(  but not two files
+					/*
+					var activity = new MozActivity({
+						name: 'share',
+						data: {
+							// this is ugly; all share options with images are shown. But right now is the
+							// only way to share with the email.
+							type: 'image/*',
+							number: 2,
+							blobs: [oHTMLBlob, oKMLBlob],
+							filenames: ["Golf Score Card"+jQuery.i18n.prop('msg_score')+"_" + myScore.nameGolf+ "_" +myScore.date+"_"+randomId+".html", "Golf Map"+jQuery.i18n.prop('msg_score')+" " + myScore.nameGolf+ " " +myScore.date+"_"+randomId+".kml"],
+							filepaths: [urlHtml,urlKml]
+						}
+					});
 
-				} /*else {*/
+					activity.onerror = function(e) {
+						ScoreCardLog("ERROR MAIL");
+					};
+
+					activity.onsuccess = function(e) {
+						ScoreCardLog("EMAIL SENT");
+					}*/
+					
+
+				}/* else {
+				
+				
+					var activity = new MozActivity({
+						name: 'share',
+						data: {
+							// this is ugly; all share options with images are shown. But right now is the
+							// only way to share with the email.
+							type: 'image/*',
+							number: 1,
+							blobs: [oHTMLBlob],
+							filenames: ["Golf Score Card"+jQuery.i18n.prop('msg_score')+"_" + myScore.nameGolf+ "_" +myScore.date+"_"+randomId+".html"],
+							filepaths: [urlHtml]
+						}
+					});
+
+					activity.onerror = function(e) {
+						ScoreCardLog("ERROR MAIL");
+					};
+
+					activity.onsuccess = function(e) {
+						ScoreCardLog("EMAIL SENT");
+					}
+				
+				
+				}
+				*/
+				
 				
 				
 				var createEmail = new MozActivity({

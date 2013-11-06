@@ -5,7 +5,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.html
 
 
-var SC_version="1.2 FOX BETA1";
+var SC_version="1.2 FOX BETA2";
 
 var SC_licence=["GPL2","http://www.gnu.org/licenses/gpl-2.0.html"];
 

@@ -7,16 +7,16 @@
   "fullscreen": "true",
  "icons": {
   "16": "/img/icon-16.png",
-   "32": "/img/icon-32.png",
+  "32": "/img/icon-32.png",
   "48": "/img/icon-48.png",
   "60": "/img/icon-60.png",
   "90": "/img/icon-90.png",
   "120": "/img/icon-120.png",
   "128": "/img/icon-128.png",
-    "256": "/img/icon-256.png"
+  "256": "/img/icon-256.png"
 },
   "developer": {
-    "name": "Fred BM",
+    "name": "Fred",
     "url": "http://fredtoulouse.github.io/ScoreCard/"
   },
   "default_locale": "en-US",
@@ -32,5 +32,6 @@
 		"access": "readwrite", 
 		"description" : "The score and position are stored on the sdcard"
         }
-  }
+  },
+  "version": "1.2"
 }

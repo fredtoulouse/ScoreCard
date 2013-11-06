@@ -131,7 +131,7 @@ function Distance()  {
 						} else {
 							//compute distance from last position
 							ScoreCardLog("GPS : distance " + myThis.computeDistance(first_pos[0], first_pos[1], one_pos[0], one_pos[1], first_pos[2], one_pos[2]));
-							distEachHole=distEachHole+"</br>&nbsp;&nbsp;&nbsp;&nbsp;&#x21D5 "+myThis.computeDistance(first_pos[0], first_pos[1], one_pos[0], one_pos[1], first_pos[2], one_pos[2])+ "</br>\n"; 
+							distEachHole=distEachHole+"</br>&nbsp;&nbsp;&nbsp;&nbsp;&#x21D5; "+myThis.computeDistance(first_pos[0], first_pos[1], one_pos[0], one_pos[1], first_pos[2], one_pos[2])+ "</br>\n"; 
 							first_pos=one_pos;
 						}
 					}
