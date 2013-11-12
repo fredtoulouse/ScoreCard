@@ -124,7 +124,7 @@ function Distance()  {
 				if (one_pos != null) {
 					if (((one_pos[0] == 0) && (one_pos[1] == 0)) || ((one_pos[0] == null) && (one_pos[1] == null))) {
 						ScoreCardLog("one_pos a 0 pas de calcul\n");
-						distEachHole+="&nbsp;"+jQuery.i18n.prop('msg_pos_nodispo').toLowerCase()+"</br> &nbsp;&nbsp;&nbsp;&nbsp;N/A \n"; 
+						distEachHole+="</br> &nbsp;&nbsp;&nbsp;&nbsp;"+jQuery.i18n.prop('msg_pos_nodispo').toLowerCase()+" </br>"; 
 					} else {
 						if ((first_pos[0]==0) && (first_pos[1]==0)) {
 							first_pos=one_pos; //First position initalized
@@ -136,7 +136,7 @@ function Distance()  {
 						}
 					}
 				} else {
-					distEachHole+="&nbsp;"+jQuery.i18n.prop('msg_pos_nodispo').toLowerCase()+"</br> &nbsp;&nbsp;&nbsp;&nbsp;N/A \n"; 
+					distEachHole+="&nbsp;"+jQuery.i18n.prop('msg_pos_nodispo').toLowerCase()+"<br/> &nbsp;&nbsp;&nbsp;&nbsp;N/A \n"; 
 				}
 				distEachHole+=jQuery.i18n.prop("msg_marq")+(n+1)+" &rArr; ["+one_pos[3]+"]";
 			})

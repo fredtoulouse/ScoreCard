@@ -90,4 +90,7 @@ $('#first_start').live( 'pageshow',function(event){
 	$('#first_start').css('background-repeat', 'no-repeat');
 	$('#first_start').css('background-position', 'center center');
 	$('#first_start_BG').css('background', 'transparent');
+
+	$('#first_start').css('margin-top',($(window).height() - $('[data-role=footer]').height() - $('#first_start').outerHeight())/2);
+	
 })
